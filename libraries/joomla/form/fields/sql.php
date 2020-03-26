@@ -276,6 +276,13 @@ class JFormFieldSQL extends JFormFieldList
 			// Get the database object.
 			$db = JFactory::getDbo();
 
+			// Search for defined token and replace with relevant computed value.
+			if (strpos($this->query, "%%userid%%"))
+			{
+				$userid = JFactory::getUser()->id;
+				$this->query = str_replace("%%userid%%", $userid, $this->query);
+			}
+
 			// Set the query and get the result list.
 			$db->setQuery($this->query);
 

@@ -31,6 +31,13 @@ foreach ($value as $v)
 
 $query = $fieldParams->get('query', '');
 
+// Search for defined token and replace with relevant computed value.
+if (strpos($query, "%%userid%%"))
+{
+	$userid = JFactory::getUser()->id;
+	$query = str_replace("%%userid%%", $userid, $query);
+}
+
 // Run the query with a having condition because it supports aliases
 $db->setQuery($query . ' having value in (' . trim($condition, ',') . ')');
 
